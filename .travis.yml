@@ -4,4 +4,4 @@ dotnet: 2.1.401
 script:
  - dotnet restore
  - dotnet build
- - dotnet test Pact.Example.Provider.Tests\
+ - dotnet test Pact.Example.Provider.Tests
