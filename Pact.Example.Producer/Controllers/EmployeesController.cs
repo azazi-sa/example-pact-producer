@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Pact.Example.Provider.Models;
 
-namespace Pact.Example.Provider.Controllers
+namespace Pact.Example.Producer.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class EmployeesController : ControllerBase
+    [Produces("application/json")]
+    [Route("employees")]
+    public class EmployeesController : Controller
     {
-        // GET api/employees
         [HttpGet]
-        public ActionResult<IEnumerable<Employee>> Get()
+        public IEnumerable<Employee> Get()
         {
             return new List<Employee>
             {
@@ -22,9 +24,8 @@ namespace Pact.Example.Provider.Controllers
             };
         }
 
-        // GET api/employees/1
         [HttpGet("{id}")]
-        public ActionResult<Employee> Get(int id)
+        public Employee Get(int id)
         {
             return new Employee
             {
@@ -33,9 +34,8 @@ namespace Pact.Example.Provider.Controllers
             };
         }
 
-        // POST api/employees
         [HttpPost]
-        public ActionResult<Employee> Post([FromBody] Employee employee)
+        public Employee Post([FromBody] Employee employee)
         {
             return new Employee
             {
@@ -43,10 +43,15 @@ namespace Pact.Example.Provider.Controllers
             };
         }
 
-        // PUT api/employees/1
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Employee employee)
         {
         }
+    }
+
+    public class Employee
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
