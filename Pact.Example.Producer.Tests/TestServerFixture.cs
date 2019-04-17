@@ -31,7 +31,7 @@ namespace Pact.Example.Producer.Tests
         private string GetContentRootPath()
         {
             var testProjectPath = PlatformServices.Default.Application.ApplicationBasePath;
-            var relativePathToHostProject = @"..\..\..\..\..\Pact.Example.Producer";
+            var relativePathToHostProject = @"../../../../../Pact.Example.Producer";
             return Path.Combine(testProjectPath, relativePathToHostProject);
         }
 
