@@ -24,9 +24,12 @@ namespace Pact.Example.Producer.Tests
         }
 
         [TestMethod]
-        public void EnsureSomethingApiHonoursPactWithConsumer()
+        public async Task EnsureEmployeeServiceHonoursPactWithWeb()
         {
-            var uri = "http://localhost:5000/employees";
+            var @base = "http://localhost:5000";
+
+            var buildNumber = Environment.GetEnvironmentVariable("TRAVIS_BUILD_NUMBER");
+
 
             var config = new PactVerifierConfig
             {
@@ -34,13 +37,16 @@ namespace Pact.Example.Producer.Tests
                 {
                     new ConsoleOutput()
                 },
-                Verbose = false //Output verbose verification logs to the test output
+                Verbose = false, //Output verbose verification logs to the test output
+                ProviderVersion = !string.IsNullOrEmpty(buildNumber) ? buildNumber : null, //NOTE: This is required for this feature to work
+                PublishVerificationResults = !string.IsNullOrEmpty(buildNumber)
+
             };
 
             IPactVerifier pactVerifier = new PactVerifier(config);
             pactVerifier
-                .ProviderState(uri)
-                .ServiceProvider("EmployeeService", uri)
+                .ProviderState($"{@base}/provider-states")
+                .ServiceProvider("EmployeeService", @base)
                 .HonoursPactWith("Web")
                 .PactUri("https://example-pact-broker.azurewebsites.net/pacts/provider/EmployeeService/consumer/Web/latest") //You can specify a http or https uri
                 .Verify();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Pact.Example.Producer.Controllers
 {
@@ -12,14 +13,15 @@ namespace Pact.Example.Producer.Controllers
     public class EmployeesController : Controller
     {
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public List<Employee> Get()
         {
+            HttpContext.Response.Headers.Add("Content-Type", "application/json");
             return new List<Employee>
             {
                 new Employee
                 {
                     Id = "1",
-                    Name = "Bhagwan Ram: The God"
+                    Name = "Ram Shinde"
                 }
             };
         }
@@ -27,31 +29,38 @@ namespace Pact.Example.Producer.Controllers
         [HttpGet("{id}")]
         public Employee Get(int id)
         {
+            HttpContext.Response.Headers.Add("Content-Type", "application/json");
             return new Employee
             {
                 Id = "1",
-                Name = "Bhagwan Ram: The God"
+                Name = "Ram Shinde"
             };
         }
 
-        [HttpPost]
-        public Employee Post([FromBody] Employee employee)
+        [HttpPut]
+        public Employee Put([FromBody] Employee employee)
         {
+            HttpContext.Response.Headers.Add("Content-Type", "application/json");
             return new Employee
             {
                 Id = "1"
             };
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Employee employee)
+        [HttpPost("{id}")]
+        public Employee Post(int id, [FromBody] Employee employee)
         {
+            HttpContext.Response.Headers.Add("Content-Type", "application/json");
+            return employee;
         }
     }
 
     public class Employee
     {
+        [JsonProperty(PropertyName = "Id")]
         public string Id { get; set; }
+
+        [JsonProperty(PropertyName = "Name")]
         public string Name { get; set; }
     }
 }
