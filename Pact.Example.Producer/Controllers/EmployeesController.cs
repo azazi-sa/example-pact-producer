@@ -22,7 +22,8 @@ namespace Pact.Example.Producer.Controllers
                 {
                     Id = "1",
                     Name = "Ram Shinde",
-                    EmailId = "ramshinde@gmail.com"
+                    EmailId = "ramshinde@gmail.com",
+                    City = "Pune"
                 }
             };
         }
@@ -66,5 +67,8 @@ namespace Pact.Example.Producer.Controllers
 
         [JsonProperty(PropertyName = "EmailId")]
         public string EmailId { get; set; }
+
+        [JsonProperty(PropertyName = "City")]
+        public string City { get; set; }
     }
 }
