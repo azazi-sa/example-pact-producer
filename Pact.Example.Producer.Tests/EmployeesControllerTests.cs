@@ -24,7 +24,7 @@ namespace Pact.Example.Producer.Tests
         }
 
         [TestMethod]
-        public async Task EnsureEmployeeServiceHonoursPactWithWeb()
+        public void EnsureEmployeeServiceHonoursPactWithWeb()
         {
             var @base = "http://localhost:5000";
 

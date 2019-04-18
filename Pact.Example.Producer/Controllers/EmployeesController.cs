@@ -21,7 +21,8 @@ namespace Pact.Example.Producer.Controllers
                 new Employee
                 {
                     Id = "1",
-                    Name = "Ram Shinde"
+                    Name = "Ram Shinde",
+                    EmailId = "ramshinde@gmail.com"
                 }
             };
         }
@@ -62,5 +63,8 @@ namespace Pact.Example.Producer.Controllers
 
         [JsonProperty(PropertyName = "Name")]
         public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "EmailId")]
+        public string EmailId { get; set; }
     }
 }
